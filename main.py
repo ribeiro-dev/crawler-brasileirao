@@ -2,7 +2,7 @@ import requests
 import json
 from bs4 import BeautifulSoup
 
-CAMP = "argentino"
+CAMP = "brasileirao-serie-a"
 URL = f"https://www.placardefutebol.com.br/campeonato-{CAMP}"
 
 try:
