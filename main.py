@@ -1,4 +1,5 @@
 import requests
+import json
 from bs4 import BeautifulSoup
 
 URL = "https://www.placardefutebol.com.br/brasileirao-serie-a"
@@ -12,9 +13,9 @@ rows = tabela.find_all("tr")
 # remove o primeiro item, que é o cabeçalho da tabela
 rows.pop(0)
 
-data = []
+data = {}
 
-for row in rows:
+for index, row in enumerate(rows):
     tempData = {}
 
     texto = row.text.strip() # tira os espaços na lateral
@@ -29,12 +30,7 @@ for row in rows:
     tempData["derrotas"] = team_data[6]
     tempData["saldo_gols"] = team_data[7]
 
-    data.append(tempData)
+    data[index] = tempData
 
-print(data)
-
-# for index in range(0, len(rows), 7):
-#     temp_data = {}
-
-#     temp_data["equipe"] = rows[index+data["equipe"]].text
-#     print(temp_data)
+with open("campeonato-brasileiro.json", "w") as file:
+    json_object = json.dump(data, file, indent = 4) 
